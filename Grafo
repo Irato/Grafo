@@ -1,0 +1,127 @@
+import java.util.ArrayList;
+
+public class Grafo {
+	
+	int[][] matriz ;
+	//ArrayList<ArrayList<String>> externa = new ArrayList<ArrayList<String>>();
+	public Grafo(int[][] m){
+		//Inicia matriz
+		this.matriz = m;
+	}
+	
+	//Metodo de Sincronização
+	
+	//Cardinalidade dos Vertices
+	public int cardinalidadeVertices(int[][] m){
+	 int cardinalidade =	m.length -1 ;
+	 
+	 System.out.println("Quantidade de vertices: " + cardinalidade);
+	  return cardinalidade;
+	}
+	
+	//Cardinalidade de Arestas
+	public int cardinalidadeArestas(int[][] m){
+		int arestas = 0;
+		for(int i =1;i <m.length;i++){
+			for(int j =1;j <m.length;j++){
+				if(m[i][j] > 0){
+					arestas++;
+				}
+			}
+		}
+		arestas= arestas/2;
+		System.out.println("Quantidade de arestas: " + arestas);
+		return arestas;
+	}
+	
+	//Grau de uma vertice
+	public int grauVertices(int[][] m, int v){
+		int grauV = 0 ;
+		
+		if(v == 0){
+			
+		}else{
+		for(int i = 1;i < m.length;i++){
+			if(m[v][i] > 0)
+				grauV++;
+		 }
+		}
+		System.out.println("Grau do vertice " +v +" é: "+  grauV);
+		return grauV;
+	}
+	
+	//Diferença Cardinalidades
+	public int diferencaCardinalidadesVA(int v, int a){
+		return v-a;
+	}
+	
+	//Eh conexo
+	/*Verifica se algum dos nós tem grau nulo, se sim o grafo não é conexo*/
+	public boolean ehConexo(int[][] m){
+		boolean ehConexo = true;
+		for(int i =1;i < m.length;i++){
+			if(grauVertices(m,i) == 0){
+				ehConexo = false;
+				System.out.println("Grafo não é conexo");
+			    break;	
+			}
+		}
+		if(ehConexo == true){
+			System.out.println("Grafo é conexo");
+		}
+	    return ehConexo;
+	}
+	
+	//Mostra a Matriz de adjacencia
+	public void imprime( int[][] m){
+		
+		for(int i =0;i <m.length;i++){
+			System.out.println();
+			for(int j =0;j <m.length;j++){
+				System.out.print(m[i][j]+ " ");
+			}
+		}
+	}
+	
+	
+	
+	
+	public static void main(String[] args){
+		
+		int vertices= 0,arestas =0;
+		
+		//Grafo para teste das classes
+		int[][] teste = new int[5][5];
+		teste[1][2] = 1;
+		teste[1][4] = 1;
+		
+		teste[2][3] = 1;
+		teste[2][1] = 1;
+		
+		teste[3][1] = 1;
+		teste[3][4] = 1;
+		
+		teste[4][1] = 1;
+		teste[4][3] = 1;
+		
+		for(int i = 1;i<teste.length;i++){
+	      teste[0][i] = i;
+	      teste[i][0] = i;
+		}
+		
+		Grafo grafo = new Grafo(teste);
+		grafo.imprime(teste);
+		System.out.println();
+		vertices = grafo.cardinalidadeVertices(teste);
+		arestas = grafo.cardinalidadeArestas(teste);
+		grafo.grauVertices(teste, 1);
+		grafo.diferencaCardinalidadesVA(vertices, arestas);
+		grafo.ehConexo(teste);
+		
+		
+		
+		
+	}
+	
+
+}
